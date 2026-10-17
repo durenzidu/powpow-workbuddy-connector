@@ -23,14 +23,18 @@ PowPop（泡泡）的 WorkBuddy 连接器包。提交 WorkBuddy 审核用，**�
 3. **不要在本仓库写入任何凭证**：mcp.json 只用公开 URL，OAuth 由 WorkBuddy 的 OAuth 管理器自动完成
 4. **source（powpow）一旦送审通过不可更改**——换 source 等于新连接器
 
-## 送审流程
+## 送审流程（2026-10-18 已核实，无官方送审 CLI）
 
-1. 打包为 zip：`connector-meta.json` + `mcp.json` + `icon.svg` + `skills/` 四样在包根
-2. 提交 WorkBuddy 团队审核（送审入口/CLI 待确认，见 https://open.workbuddy.cn/docs/connector 文末）
-3. 过审后进连接器市场；更新重新提交，约 10–15 分钟生效
+1. **前置条件**：在 WorkBuddy 开放平台（open.workbuddy.cn）完成开发者认证（个人或企业），否则无法提交
+2. **打包 zip**：解压后必须是**单一顶层目录** `powpow/`，内含 `connector-meta.json` + `mcp.json` + `icon.svg` + `skills/`（本仓库内容原样打包，排除 `.git`）
+3. **提交审核**：在开放平台提交 zip 包给 WorkBuddy 团队审核；zip 解析失败可发邮件 openworkbuddy@tencent.com 或加开放平台首页社群
+4. **过审后**进入连接器市场；后续更新重新提交，约 10–15 分钟同步生效
+5. 送审时需向平台确认 `source`（powpow）未被他人注册——source 过审后不可更改
 
 ## 已验证的服务端兼容性（2026-10-18）
 
-- DCR 接受 WorkBuddy 两种回调：`workbuddy://workbuddy/mcp/connector%3A<powpow>/oauth/callback` 与 `http://127.0.0.1:{port}/oauth/callback`（探针：D:\MCP\dcr-probe.mjs）
-- 协议双形态兼容：传统 JSON-RPC（initialize 握手，2025-06-18）与 modern envelope（2026-07-28 + SEP-2663 头镜像）均 200（探针：D:\MCP\protocol-probe.mjs）
-- 登录链路：授权 → remembered consent 自动批准 → token 交换 → whoami 返回账号信息
+- DCR 接受 WorkBuddy 两种回调：`workbuddy://workbuddy/mcp/connector%3A<powpow>/oauth/callback` 与 `http://127.0.0.1:{port}/oauth/callback`；DCR 注册响应正确回显 redirect_uris
+- 协议双形态兼容：传统 JSON-RPC（initialize 握手，2025-06-18）与 modern envelope（2026-07-28 + SEP-2663 头镜像）均 200
+- OAuth 全链路：authorize 302 → remembered consent 自动批准 → token 交换 → whoami 返回账号信息
+- PKCE：授权请求带 `code_challenge_method=S256`，token 端点校验 `code_verifier`
+- 线上服务端版本 powpow-mcp v0.14.5，9 个只读工具，单次请求 <30 秒
