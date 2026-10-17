@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "powpow": {
+      "type": "streamableHttp",
+      "url": "https://global.powpow.online/api/mcp",
+      "timeout": 30000
+    }
+  }
+}

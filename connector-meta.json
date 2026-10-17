@@ -1,0 +1,26 @@
+{
+  "name": "PowPop",
+  "name_zh": "PowPop 泡泡",
+  "name_en": "PowPop",
+  "description": "Discover people, posts and places around you on PowPop.",
+  "description_zh": "发现附近的数字人、真实用户与帖子，按关键词搜索话题，浏览景点商圈、打卡活动与会员方案。",
+  "description_en": "Discover nearby digital humans, users and posts on PowPop; search topics by keyword; browse attractions, campaigns and membership plans.",
+  "source": "powpow",
+  "type": "mcp",
+  "version": "1.0.0",
+  "minWorkbuddyVersion": "4.24.0",
+  "examples_zh": [
+    "看看我附近有什么有意思的人",
+    "搜索关于故宫的帖子",
+    "附近有哪些景点和商圈？",
+    "现在有什么活动可以参加？",
+    "你们会员多少钱？"
+  ],
+  "examples_en": [
+    "Show me interesting people nearby",
+    "Search posts about the Forbidden City",
+    "What attractions and districts are near me?",
+    "What campaigns can I join right now?",
+    "How much does a membership cost?"
+  ]
+}
